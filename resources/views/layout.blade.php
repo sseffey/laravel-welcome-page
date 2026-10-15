@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome Page</title>
+    <title>@yield('title')</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -26,16 +26,16 @@
             margin-top: 0;
             color: #333333;
         }
-        input[type="text"] {
+        input {
             width: 100%;
             padding: 10px;
+            margin-bottom: 12px;
             font-size: 16px;
             border: 1px solid #cccccc;
             border-radius: 4px;
             box-sizing: border-box;
         }
         button {
-            margin-top: 15px;
             padding: 10px 20px;
             font-size: 16px;
             color: #ffffff;
@@ -49,33 +49,30 @@
         }
         .error {
             color: #dc2626;
-            margin-top: 10px;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+        .error p {
+            margin: 4px 0;
         }
         .message {
             color: #16a34a;
             font-size: 20px;
+            margin: 20px 0;
+        }
+        .link {
             margin-top: 20px;
+            font-size: 14px;
+            color: #555555;
+        }
+        a {
+            color: #3b82f6;
         }
     </style>
 </head>
 <body>
     <div class="card">
-        <h1>Welcome Page</h1>
-
-        <form action="/greet" method="POST">
-            @csrf
-            <input type="text" name="name" placeholder="Enter your name" value="{{ old('name') }}">
-            <br>
-            <button type="submit">Say Hello</button>
-        </form>
-
-        @error('name')
-            <div class="error">{{ $message }}</div>
-        @enderror
-
-        @isset($name)
-            <div class="message">Welcome, {{ $name }}!</div>
-        @endisset
+        @yield('content')
     </div>
 </body>
 </html>

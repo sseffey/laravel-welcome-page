@@ -1,10 +1,19 @@
 <?php
 
-use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
-// GET /  -> show the page
-Route::get('/', [WelcomeController::class, 'index']);
+Route::get('/', function () {
+    return redirect('/dashboard');
+});
 
-// POST /greet -> handle the form submission
-Route::post('/greet', [WelcomeController::class, 'greet']);
+Route::get('/register', [AuthController::class, 'showRegister']);
+Route::post('/register', [AuthController::class, 'register']);
+
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+
+Route::post('/logout', [AuthController::class, 'logout']);
+
+// Only logged-in users can open this page
+Route::get('/dashboard', [AuthController::class, 'dashboard'])->middleware('auth');
